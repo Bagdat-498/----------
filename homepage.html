@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqbobek Lyceum — Единый школьный портал с ИИ</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header>
+    <div class="header-container max-container">
+        <div class="logo">
+            <div class="logo-icon">A</div>
+            <div class="logo-text">
+                <h1>Aqbobek Lyceum</h1>
+                <p>Единый школьный портал с ИИ-аналитикой</p>
+            </div>
+        </div>
+
+        <!-- Кнопка меню (бургер) -->
+        <div class="menu-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Навигация для компьютера -->
+        <nav class="desktop-nav">
+            <a href="#">Для учеников</a>
+            <a href="#">Для учителей</a>
+            <a href="#">Для родителей</a>
+            <a href="#">Интерактивные уроки</a>
+            <a href="#">Smart Schedule</a>
+            <a href="#">О платформе</a>
+        </nav>
+
+        <button onclick="showLoginModal()" class="btn btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Войти в портал
+        </button>
+    </div>
+
+    <!-- SIDEBAR (ТЕЛЕФОН) -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">A</div>
+                <div class="logo-text"><h1>Aqbobek Lyceum</h1></div>
+            </div>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+        <a href="#">Главная</a>
+        <a href="#">Возможности</a>
+        <a href="#">Для учеников</a>
+        <a href="#">Для учителей</a>
+        <a href="#">Для родителей</a>
+        <a href="#">Smart Schedule</a>
+        <a href="#">Kiosk Mode</a>
+        <a href="#">Контакты</a>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+</header>
+    <!-- ==================== HERO СЕКЦИЯ ==================== -->
+    <section class="hero">
+        <div class="hero-content max-container">
+            <h2>Единый школьный портал<br>Aqbobek Lyceum</h2>
+            <p>Интеграция BilimClass • Глубокая ИИ-аналитика успеваемости • Автоматическое умное расписание • Цифровое портфолио и геймификация</p>
+
+            <!-- Карточки выбора роли (соответствуют ролевой модели ТЗ) -->
+            <div class="roles-grid">
+                <!-- Ученик -->
+                <button onclick="window.location.href='./signin.html' " class="role-card">
+                    <div class="role-icon">👨‍🎓</div>
+                    <h3>Я ученик</h3>
+                    <p>Дашборд успеваемости с интеграцией BilimClass • AI-Тьютор с предиктивной аналитикой • Цифровое портфолио • Геймификация и лидерборды</p>
+                    <span class="role-link">Войти как ученик →</span>
+                </button>
+
+                <!-- Учитель -->
+                <button onclick="window.location.href='./login.html' "  class="role-card">
+                    <div class="role-icon">👩‍🏫</div>
+                    <h3>Я учитель</h3>
+                    <p>Early Warning System • Автоматическая генерация отчётов ИИ • Аналитика рисков класса</p>
+                    <span class="role-link">Войти как учитель →</span>
+                </button>
+
+                <!-- Родитель -->
+                <button onclick="window.location.href='./parents.html' " class="role-card">
+                    <div class="role-icon">👨‍👩‍👧</div>
+                    <h3>Я родитель</h3>
+                    <p>Режим наблюдателя • AI-выжимка успеваемости ребёнка за неделю • Уведомления и рекомендации</p>
+                    <span class="role-link">Войти как родитель →</span>
+                </button>
+        </div>
+    </section>
+
+    <!-- ==================== СЕКЦИЯ ПРЕИМУЩЕСТВ (Hardcore + MVP) ==================== -->
+    <section class="features-section">
+        <div class="max-container">
+            <div class="section-header">
+                <h2>Почему Aqbobek Lyceum выбирают лучшие</h2>
+                <p>Единая цифровая среда + ИИ + умное расписание</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <img src="./homepage,img/i (3).webp" alt="">
+                    </div>
+                    <h3>ИИ-Тьютор и предиктивная аналитика</h3>
+                    <p>Граф знаний, прогноз провала СОЧ, персональные рекомендации и 3 видеолекции для закрытия пробелов.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <img src="./homepage,img/i (1).webp" alt="">
+                    </div>
+                    <h3>Smart Schedule — умное расписание</h3>
+                    <p>Автоматическая генерация без конфликтов • Учёт лент, групп, окон учителей • Мгновенное перестроение при болезни.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <img src="./homepage,img/i (2).webp" alt="">
+                    </div>
+                    <h3>Цифровое портфолио + геймификация</h3>
+                    <p>Верифицированные достижения, ачивки, лидерборды и динамические рейтинги.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image-placeholder">
+                        <img src="./homepage,img/i.webp" alt="">
+                    </div>
+                    <h3>Kiosk Mode — интерактивная стенгазета</h3>
+                    <p>Автоскролл для интерактивных панелей в коридорах • Крупная типографика • Топ учеников дня и актуальные замены.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== СЕКЦИЯ КАК ЭТО РАБОТАЕТ ==================== -->
+    <section class="how-it-works">
+        <div class="max-container">
+            <div class="section-header">
+                <h2>Как работает портал</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Интеграция данных</h3>
+                    <p>Mock-сервер BilimClass + собственные алгоритмы ИИ-аналитики.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Умное расписание</h3>
+                    <p>Автоматическое построение с учётом всех ограничений и мгновенное перестроение.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>AI для всех ролей</h3>
+                    <p>Предиктивная аналитика, Early Warning System и автоматические отчёты.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== СЕКЦИЯ ДЛЯ КОГО ==================== -->
+    <section class="for-whom">
+        <div class="max-container">
+            <h2 class="section-title">Платформа создана для всех участников образовательного процесса</h2>
+            <div class="for-grid">
+                <div class="for-card">
+                    <h3>Ученики</h3>
+                    <ul>
+                        <li>AI-Тьютор и персональные рекомендации</li>
+                        <li>Цифровое портфолио достижений</li>
+                        <li>Геймификация и лидерборды</li>
+                    </ul>
+                </div>
+                <div class="for-card">
+                    <h3>Учителя</h3>
+                    <ul>
+                        <li>Early Warning System</li>
+                        <li>Генерация отчётов ИИ за 1 клик</li>
+                        <li>Аналитика рисков класса</li>
+                    </ul>
+                </div>
+                <div class="for-card">
+                    <h3>Родители</h3>
+                    <ul>
+                        <li>AI-выжимка успеваемости за неделю</li>
+                        <li>Уведомления и рекомендации</li>
+                        <li>Режим полного наблюдения</li>
+                    </ul>
+                </div>
+                <div class="for-card">
+                    <h3>Администрация</h3>
+                    <ul>
+                        <li>Глобальный радар качества образования</li>
+                        <li>Центр уведомлений с таргетингом</li>
+                        <li>Smart Schedule + динамическое управление</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ФУТЕР ==================== -->
+    <footer>
+        <div class="max-container">
+            <div class="footer-content">
+                <div class="logo">
+                    <div class="logo-icon">A</div>
+                    <div class="logo-text">
+                        <h1>Aqbobek Lyceum</h1>
+                        <p>© 2026 Единый школьный портал с ИИ</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#">О нас</a>
+                    <a href="#">Smart Schedule</a>
+                    <a href="#">Kiosk Mode</a>
+                    <a href="#">Поддержка</a>
+                    <a href="#">Контакты</a>
+                </div>
+                <div class="footer-info">
+                    <p>Интеграция с BilimClass • Собственные алгоритмы ИИ • Автоматизация расписания</p>
+                    <p>Разработано специально для Aqbobek Lyceum</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== МОДАЛЬНОЕ ОКНО ==================== -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3>Выберите роль для входа</h3>
+            
+            <button onclick="fakeLogin('Ученик')" class="modal-role-btn">
+                <span class="modal-icon">👨‍🎓</span>
+                <div>
+                    <div class="modal-role-title">Ученик</div>
+                    <div class="modal-role-desc">Дашборд + AI-Тьютор</div>
+                </div>
+            </button>
+
+            <button onclick="fakeLogin('Учитель')" class="modal-role-btn">
+                <span class="modal-icon">👩‍🏫</span>
+                <div>
+                    <div class="modal-role-title">Учитель</div>
+                    <div class="modal-role-desc">Аналитика + отчёты ИИ</div>
+                </div>
+            </button>
+
+            <button onclick="fakeLogin('Родитель')" class="modal-role-btn">
+                <span class="modal-icon">👨‍👩‍👧</span>
+                <div>
+                    <div class="modal-role-title">Родитель</div>
+                    <div class="modal-role-desc">Наблюдение + AI-выжимка</div>
+                </div>
+            </button>
+
+            <button onclick="fakeLogin('Администратор')" class="modal-role-btn">
+                <span class="modal-icon">🛡</span>
+                <div>
+                    <div class="modal-role-title">Администрация</div>
+                    <div class="modal-role-desc">Глобальный радар + Smart Schedule</div>
+                </div>
+            </button>
+
+            <button onclick="hideLoginModal()" class="close-btn">Закрыть</button>
+        </div>
+    </div>
+
+   <script src="homepage.js"></script>
+</body>
+</html>

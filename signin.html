@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        /* 1. АДАПТИВНОСТЬ И ФОН */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        /* 2. РАЗМЕР КАРТОЧКИ И ЭФФЕКТЫ */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 380px; /* Оптимальный размер */
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ КУРСОР РУКА И УВЕЛИЧЕНИЕ */
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        h2 { color: #3b82f6; margin-bottom: 25px; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        /* КРАСНАЯ ЯЧЕЙКА ПРИ ОШИБКЕ */
+        .error-input {
+            border-color: #ff4d4d !important;
+            background-color: #fff5f5;
+        }
+
+        /* ЭФФЕКТ ТРЯСКИ */
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* КНОПКА И КУРСОР РУКА */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #e2e8f0;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer; /* КУРСОР РУКА */
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        button:hover { background: #3b82f6; }
+
+        /* АНИМАЦИЯ ЗАГРУЗКИ */
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 3px solid #FFF;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: none; /* Скрыта изначально */
+            animation: rotation 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .link-text {
+            color: #334155;
+            cursor: pointer; /* КУРСОР РУКА */
+            font-size: 14px;
+            display: block;
+            margin-top: 15px;
+        }
+
+        /* ТЕКСТ НАЗАД */
+        .back-btn {
+            margin-top: 10px; 
+            color: #334155;
+            font-size: 13px;
+            cursor: pointer; /* КУРСОР РУКА */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="formCard">
+    <h2 id="title">Войти</h2>
+    
+    <input type="text" id="username" placeholder="Имя" style="display:none">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Пароль">
+    
+    <button onclick="handleSubmit()">
+        <span id="btnText">Поехали</span>
+        <div class="loader" id="loading"></div>
+    </button>
+    
+    <span class="link-text" onclick="toggleMode()" id="toggleBtn">Нет аккаунта? Регистрация</span>
+    <span class="back-btn" onclick="location.reload()">Назад</span> </div>
+
+<script>
+    let mode = 'login';
+
+    function toggleMode() {
+        mode = mode === 'login' ? 'reg' : 'login';
+        document.getElementById('title').innerText = mode === 'login' ? 'Войти' : 'Регистрация';
+        document.getElementById('username').style.display = mode === 'login' ? 'none' : 'block';
+        document.getElementById('toggleBtn').innerText = mode === 'login' ? 'Нет аккаунта? Регистрация' : 'Уже есть аккаунт? Войти';
+    }
+
+    async function handleSubmit() {
+        const card = document.getElementById('formCard');
+        const passField = document.getElementById('password');
+        const emailField = document.getElementById('email');
+        const loader = document.getElementById('loading');
+        const btnText = document.getElementById('btnText');
+
+        // СБРОС СТИЛЕЙ
+        card.classList.remove('shake');
+        passField.classList.remove('error-input');
+        emailField.classList.remove('error-input');
+
+        // ВКЛЮЧАЕМ ЗАГРУЗКУ
+        loader.style.display = 'inline-block';
+        btnText.innerText = 'Ждем...';
+const body = {
+  email: emailField.value,
+  password: passField.value,
+  username: document.getElementById("username").value,
+  role: localStorage.getItem("role") // ВОТ ЭТО ГЛАВНОЕ
+};
+
+        const path = mode === 'login' ? 'login' : 'register';
+
+        try {
+const r = await fetch(`http://localhost:5000/api/auth/${path}`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body)
+});
+
+const d = await r.json(); // ОБЯЗАТЕЛЬНО!
+
+console.log(r.status)
+console.log(d)
+
+            if (r.ok) {
+                if (d.role === 'teacher') {
+  location.href = 'teacher.html';
+} else {
+  location.href = 'student.html';
+}
+                if (mode === 'login') {
+                    localStorage.setItem('token', d.token);
+                    localStorage.setItem('username', d.username);
+                    if (d.role === 'teacher') {
+                      location.href = 'teacher.html';
+                    } else {
+                      location.href = 'student.html'
+                    }
+                } else {
+                    alert('Успех! Входи.');
+                    toggleMode();
+                 }
+            } else {               
+                // ЕСЛИ ОШИБКА — ТРЯСЕМ И КРАСИМ
+                card.classList.add('shake');
+                passField.classList.add('error-input');
+                emailField.classList.add('error-input');
+            }
+        } catch (e) {
+            alert('Сервер не отвечает!');
+        } finally {
+            // ВЫКЛЮЧАЕМ ЗАГРУЗКУ
+            loader.style.display = 'none';
+            btnText.innerText = mode === 'login' ? 'Поехали' : 'Создать';
+        }
+    }
+</script>
+
+</body>
+</html>

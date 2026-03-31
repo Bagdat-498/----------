@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель Администратора | Aqbobek</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --blue: #1e3a8a; --green: #27ae60; --light: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--light); padding: 40px; }
+        .admin-card { 
+            max-width: 900px; margin: 0 auto; background: white; 
+            padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+        }
+        h2 { color: var(--blue); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; }
+        input, select { 
+            width: 100%; padding: 12px; border: 2px solid #e2e8f0; 
+            border-radius: 10px; outline: none; transition: 0.3s; box-sizing: border-box;
+        }
+        input:focus { border-color: var(--blue); }
+
+        /* Секция родителя */
+        #parentField { 
+            background: #f1f5f9; padding: 15px; border-radius: 12px; 
+            border: 1px dashed var(--blue); display: none; 
+        }
+
+        .btn-save { 
+            background: var(--blue); color: white; border: none; 
+            padding: 15px; border-radius: 10px; width: 100%; 
+            font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 20px;
+        }
+        .btn-save:hover { background: #111827; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+        th { text-align: left; padding: 12px; border-bottom: 2px solid #eee; color: #64748b; }
+        td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
+
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; }
+        .badge-teacher { background: #dbeafe; color: #1e40af; }
+        .badge-student { background: #fef3c7; color: #92400e; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h2><i class="fas fa-users-cog"></i> Регистрация сотрудников и учеников</h2>
+    
+    <div class="form-grid">
+        <div>
+            <label>Тип аккаунта</label>
+            <select id="userRole" onchange="checkRole()">
+                <option value="student">Ученик</option>
+                <option value="teacher">Учитель / Преподаватель</option>
+            </select>
+        </div>
+        <div>
+            <label>ID / Логин (для входа)</label>
+            <input type="text" id="userId" placeholder="Напр: T-550 или 2026-01">
+        </div>
+        <div class="full-width">
+            <label>ФИО полностью</label>
+            <input type="text" id="userName" placeholder="Имя Фамилия Отчество">
+        </div>
+
+        <div id="parentField" class="full-width">
+            <label><i class="fas fa-user-friends"></i> ФИО Родителя (только для учеников)</label>
+            <input type="text" id="parentName" placeholder="Введите имя родителя">
+        </div>
+    </div>
+
+    <button class="btn-save" onclick="saveToSystem()">Зарегистрировать в базе</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Роль</th>
+                <th>Связь / Предмет</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody id="dbTable"></tbody>
+    </table>
+</div>
+
+<script>
+    // Показываем/скрываем поле родителя
+    function checkRole() {
+        const role = document.getElementById('userRole').value;
+        const parentDiv = document.getElementById('parentField');
+        parentDiv.style.display = (role === 'student') ? 'block' : 'none';
+    }
+
+    function saveToSystem() {
+        const role = document.getElementById('userRole').value;
+        const id = document.getElementById('userId').value.trim();
+        const name = document.getElementById('userName').value.trim();
+        const parent = document.getElementById('parentName').value.trim();
+
+        if (!id || !name) return alert("Заполните ID и Имя!");
+
+        const newUser = {
+            id: id,
+            name: name,
+            role: role,
+            parent: (role === 'student') ? parent : "Преподаватель",
+            pass: "12345" // Пароль по умолчанию
+        };
+
+        // Сохраняем в общую базу aqbobek_db
+        let db = JSON.parse(localStorage.getItem('aqbobek_db')) || [];
+        db.push(newUser);
+        localStorage.setItem('aqbobek_db', JSON.stringify(db));
+
+        // Очистка
+        document.getElementById('userId').value = "";
+        document.getElementById('userName').value = "";
+        document.getElementById('parentName').value = "";
+        
+        render();
+    }
+
+    function render() {
+        const db = JSON.parse(localStorage.getItem('aqbobek_db')) || [];
+        const tbody = document.getElementById('dbTable');
+        tbody.innerHTML = db.map((user, index) => `
+            <tr>
+                <td><code>${user.id}</code></td>
+                <td><b>${user.name}</b></td>
+                <td><span class="badge ${user.role === 'teacher' ? 'badge-teacher' : 'badge-student'}">
+                    ${user.role === 'teacher' ? 'УЧИТЕЛЬ' : 'УЧЕНИК'}
+                </span></td>
+                <td style="font-size: 13px; color: #666;">${user.parent}</td>
+                <td><button onclick="remove(${index})" style="border:none; background:none; color:red; cursor:pointer;">🗑️</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function remove(i) {
+        let db = JSON.parse(localStorage.getItem('aqbobek_db'));
+        db.splice(i, 1);
+        localStorage.setItem('aqbobek_db', JSON.stringify(db));
+        render();
+    }
+
+    window.onload = render;
+</script>
+
+</body>
+</html>

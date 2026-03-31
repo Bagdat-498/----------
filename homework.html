@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задания - Aqbobek Lyceum</title>
+    <style>
+        /* СТИЛИ ОДИН-В-ОДИН КАК В РАСПИСАНИИ */
+        :root {
+            --primary-blue: #0062cc;
+            --light-blue: #e7f1ff;
+            --bg-gray: #f4f7fa;
+            --text-main: #333;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-gray);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--white);
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-a { 
+            background: var(--primary-blue); color: white; 
+            width: 40px; height: 40px; display: flex; 
+            justify-content: center; align-items: center; 
+            border-radius: 10px; font-weight: bold; font-size: 22px; 
+        }
+        .brand { font-size: 20px; font-weight: bold; color: var(--primary-blue); }
+
+        .main-wrapper { display: flex; flex: 1; }
+
+        .sidebar {
+            width: 260px;
+            background: var(--white);
+            border-right: 1px solid #e0e6ed;
+            padding-top: 20px;
+        }
+
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav ul li a {
+            display: block;
+            padding: 15px 30px;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar nav ul li a:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .sidebar nav ul li a.active {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border-left: 4px solid var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* КОНТЕНТ */
+        .content { flex: 1; padding: 40px; }
+
+        /* СЕЛЕКТОР ДНЕЙ (Как в расписании) */
+        .day-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .arrow {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .arrow:hover { background: #004a99; }
+
+        #day-display {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            min-width: 180px;
+            text-align: center;
+        }
+
+        /* КАРТОЧКА ЗАДАНИЙ */
+        .homework-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f7;
+        }
+
+        .homework-card h3 {
+            color: var(--text-main);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .homework-card p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .teacher-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--white);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e6ed;
+            color: #888;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e0e6ed; }
+            .sidebar nav ul { display: flex; overflow-x: auto; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-a">A</div>
+            <span class="brand">Aqbobek Lyceum</span>
+        </div>
+        <div>
+            <span id="top-name" style="font-weight: 600; margin-right: 15px;">Загрузка...</span>
+            <button onclick="logout()" style="cursor:pointer; background:#dc3545; color:white; border:none; padding:8px 12px; border-radius:5px;">Выйти</button>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="student.html">🏠 Главная</a></li>
+                    <li><a href="schedule.html">📅 Расписание</a></li>
+                    <li><a href="student.html">📊 Мои оценки</a></li>
+                    <li><a href="homework.html" class="active">📝 Задания</a></li>
+                    <li><a href="profile.html">👤 Профиль</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="day-navigation">
+                <button class="arrow" onclick="moveDay(-1)">❮</button>
+                <div id="day-display">Понедельник</div>
+                <button class="arrow" onclick="moveDay(1)">❯</button>
+            </div>
+
+            <div class="homework-card">
+                <h3>📝 Домашнее задание</h3>
+                <p>На этот день ничего не задано.</p>
+                <p class="teacher-note">Задания появятся здесь, когда их выставит учитель в <b>teacher.html</b></p>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2026 Компания "Акбобек Лицей". Все права защищены.
+    </footer>
+
+    <script>
+        const days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+        let currentIdx = 0;
+
+        function moveDay(step) {
+            currentIdx = (currentIdx + step + days.length) % days.length;
+            document.getElementById('day-display').innerText = days[currentIdx];
+        }
+
+        window.onload = function() {
+            document.getElementById('top-name').innerText = localStorage.getItem('name') || 'Студент';
+        };
+
+        function logout() {
+            localStorage.clear();
+            location.href = 'signin.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Aqbobek Lyceum | Мои связи</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #003399; 
+            --light-blue: #e6f0ff;
+            --success-green: #27ae60;
+            --white: #ffffff;
+            --text-gray: #5f6368;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .profile-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            padding: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card-header {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2e7d32; /* Темно-зеленый как в оригинале */
+            margin-bottom: 24px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        /* ИНФО-БЛОК */
+        .info-box {
+            background: #e8f0fe; /* Светло-голубой фон для уведомлений */
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .info-box i { color: var(--primary-blue); }
+
+        .info-text {
+            font-size: 0.85rem;
+            color: #3c4043;
+            line-height: 1.5;
+        }
+
+        /* КАРТОЧКА РОДИТЕЛЯ / УЧИТЕЛЯ */
+        .account-details {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            background: #fff;
+        }
+
+        .user-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-icon {
+            color: #70757a;
+            font-size: 1.2rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #202124;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            background: #e6f4ea;
+            color: var(--success-green);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .timestamp {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: #9aa0a6;
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="card-header">Связанные родители</div>
+
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div class="info-text">
+                Если в списке отсутствует ваш родитель или законный представитель, пожалуйста, обратитесь к классному руководителю для обновления данных.
+            </div>
+        </div>
+
+        <div class="account-details">
+            <div class="user-row">
+                <div class="user-icon"><i class="fas fa-user-friends"></i></div>
+                <div class="user-name">Есқали Лаура</div>
+            </div>
+
+            <a href="tel:+77078480820" class="contact-link">
+                <i class="fas fa-phone-alt"></i>
+                +7 (707) 848-08-20
+            </a>
+
+            <div class="status-badge">
+                <i class="fas fa-check-circle"></i>
+                Связь установлена
+            </div>
+
+            <div class="timestamp">31.03.2026</div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="student_panel.html" class="btn-back">Вернуться в мой дневник</a>
+        </div>
+    </div>
+
+</body>
+</html>

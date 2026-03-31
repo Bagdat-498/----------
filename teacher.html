@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель Учителя - Aqbobek Lyceum</title>
+    <style>
+        /* Используем те же переменные, что и в профиле ученика */
+        :root {
+            --primary-blue: #0062cc;
+            --bg-gray: #f4f7fa;
+            --white: #ffffff;
+            --border: #e0e6ed;
+            --text-main: #333;
+        }
+
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg-gray); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        header { 
+            background: var(--white); height: 70px; display: flex; 
+            justify-content: space-between; align-items: center; padding: 0 30px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        }
+
+        .main-wrapper { display: flex; flex: 1; }
+
+        /* Сайдбар как у ученика */
+        .sidebar { width: 260px; background: var(--white); border-right: 1px solid var(--border); padding-top: 20px; }
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav ul li a { 
+            display: block; padding: 15px 30px; color: var(--text-main); 
+            text-decoration: none; border-left: 4px solid transparent; 
+        }
+        .sidebar nav ul li a.active { background: #e7f1ff; color: var(--primary-blue); border-left: 4px solid var(--primary-blue); font-weight: bold; }
+
+        .content { flex: 1; padding: 40px; }
+
+        /* Стили для списка учеников */
+        .student-list { background: var(--white); border-radius: 12px; border: 1px solid var(--border); padding: 20px; }
+        .student-item { 
+            display: flex; justify-content: space-between; padding: 15px; 
+            border-bottom: 1px solid #f0f0f0; align-items: center; 
+        }
+        .student-item:last-child { border-bottom: none; }
+        .avatar-small { 
+            width: 35px; height: 35px; background: var(--primary-blue); 
+            color: white; border-radius: 50%; display: flex; 
+            justify-content: center; align-items: center; font-weight: bold; margin-right: 15px;
+        }
+        .info { display: flex; align-items: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="font-weight: bold; color: var(--primary-blue); font-size: 20px;">Aqbobek Lyceum (Учитель)</div>
+        <div id="teacher-name">Загрузка...</div>
+    </header>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">👥 Мои ученики</a></li>
+                    <li><a href="homework_manage.html">📚 Выставить задания</a></li>
+                    <li><a href="profile.html">👤 Профиль</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2>Недавно вошедшие ученики</h2>
+            <div class="student-list" id="students-container">
+                <p>Загрузка списка учеников...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadStudents() {
+            try {
+                const res = await fetch('http://localhost:5000/api/users');
+                const users = await res.json();
+                
+                const container = document.getElementById('students-container');
+                container.innerHTML = ''; // Очистить текст загрузки
+
+                if (users.length === 0) {
+                    container.innerHTML = '<p>Пока никто не зарегистрировался.</p>';
+                    return;
+                }
+
+                users.forEach(user => {
+                    const item = document.createElement('div');
+                    item.className = 'student-item';
+                    item.innerHTML = `
+                        <div class="info">
+                            <div class="avatar-small">${user.username[0].toUpperCase()}</div>
+                            <div>
+                                <strong>${user.username}</strong><br>
+                                <small style="color: gray;">${user.email}</small>
+                            </div>
+                        </div>
+                        <div style="color: #2ecc71; font-size: 14px;">● В системе</div>
+                    `;
+                    container.appendChild(item);
+                });
+            } catch (e) {
+                console.error(e);
+                document.getElementById('students-container').innerHTML = '<p>Ошибка загрузки данных.</p>';
+            }
+        }
+
+        window.onload = () => {
+            document.getElementById('teacher-name').innerText = localStorage.getItem('username') || 'Учитель';
+            loadStudents();
+        };
+    </script>
+</body>
+</html>
